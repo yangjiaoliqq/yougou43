@@ -26,7 +26,17 @@
       <img src="https://api.zbztb.cn/pyg/icon_index_nav_1@2x.png" alt="">
     </div>
     <!-- 楼层 -->
-
+  <ul>
+    <li  class="floor" v-for="(floor,i) in 4" :key="i">
+      <img src="https://api.zbztb.cn/pyg/pic_floor01_title.png" alt="">
+       <div class="product_list">
+        <img src="https://api.zbztb.cn/pyg/pic_floor01_1@2x.png" alt="">
+        <div class="right">
+          <img  v-for="(item,index) in 4" :key="index" src="https://api.zbztb.cn/pyg/pic_floor01_2@2x.png" alt="">
+        </div>
+       </div>
+    </li>
+  </ul>
   </div>
 </template>
 
@@ -36,8 +46,7 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
-.homeBox {
+<style lang="less">
   // 头部
   .header {
 background-color: #ee4450;
@@ -78,6 +87,29 @@ swiper {
   }
 }
 // 楼层
+.floor {
+ 
+  >img {
+    width: 100%;
+    height: 88rpx;
+  }
 }
+.product_list {
+   padding:20rpx 17rpx 0;
+  display:flex;
+  >img {
+    width: 232rpx;
+    height: 386rpx;
+  }
+}
+.right {
+  flex:1;
+  >img {
+    margin: 0 0 5rpx 10rpx;
+    width: 232rpx;
+    height: 188rpx;
+  }
+}
+
 
 </style>
