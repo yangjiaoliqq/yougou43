@@ -58,25 +58,19 @@ export default {
     this.getFloordata()
   },
   methods: {
-    getSwiperdata(){
-      this.$request({
+    async getSwiperdata(){
+     this.swiperdata = await this.$request({
         url: '/api/public/v1/home/swiperdata',
-      }).then(data=>{
-        this.swiperdata = data
       })
     },
-    getCatitems(){
-      this.$request({
+    async getCatitems(){
+      this.catitems = await this.$request({
         url: '/api/public/v1/home/catitems',
-      }).then(data=>{
-        this.catitems = data
       })
     },
-    getFloordata(){
-      this.$request({
+    async getFloordata(){
+      this.floordata = await this.$request({
         url: '/api/public/v1/home/floordata',
-      }).then(data=>{
-        this.floordata = data
       })
     }
   },
