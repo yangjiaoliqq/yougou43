@@ -11,19 +11,16 @@
       </div>
     </div>
     <!-- 轮播图 -->
-    <swiper indicator-dots circular>
-        <block v-for="(item,index) in 3" :key="index">
+    <swiper indicator-dots autoplay=true indicator-active-color="#ffffff" indicatorColor="rgba(255,255,255,.3)" circular>
+        <block v-for="(item,index) in swiperdata" :key="index">
             <swiper-item>
-                <image src="https://api.zbztb.cn/pyg/banner1.png"></image>
+                <image :src="item.image_src"></image>
             </swiper-item>
         </block>
     </swiper>
     <!-- 导航 -->
     <div class="nav">
-      <img src="https://api.zbztb.cn/pyg/icon_index_nav_4@2x.png" alt="">
-      <img src="https://api.zbztb.cn/pyg/icon_index_nav_3@2x.png" alt="">
-      <img src="https://api.zbztb.cn/pyg/icon_index_nav_2@2x.png" alt="">
-      <img src="https://api.zbztb.cn/pyg/icon_index_nav_1@2x.png" alt="">
+      <img v-for="(item,index) in catitems" :key="index" :src="item.image_src">
     </div>
     <!-- 楼层 -->
   <ul>
@@ -42,7 +39,38 @@
 
 <script>
 export default {
-
+  data() {
+    return {
+      swiperdata:[],
+      catitems:[],
+    }
+  },
+  onLoad(){
+    this.getSwiperdata()
+    this.getCatitems()
+  },
+  methods: {
+    getSwiperdata(){
+      wx.request({
+        url: 'https://api.zbztb.cn/api/public/v1/home/swiperdata',
+        success: res => {
+          if(res.data.meta.status === 200){
+            this.swiperdata = res.data.message;
+          }
+        }
+      });
+    },
+    getCatitems(){
+      wx.request({
+        url: 'https://api.zbztb.cn/api/public/v1/home/catitems',
+        success: res => {
+         if (res.data.meta.status === 200) {
+          this.catitems = res.data.message
+         }
+        }
+      });
+    }
+  },
 }
 </script>
 
@@ -58,7 +86,7 @@ box-sizing: border-box;
   background-color: #fff;
   border-radius: 5rpx;
   color: #bbbbbb;
-  font-size: 16px;
+  font-size: 14px;
   align-items: center;
   justify-content: center;
   display: flex;
@@ -104,12 +132,11 @@ swiper {
 }
 .right {
   flex:1;
+  font-size: 0;
   >img {
-    margin: 0 0 5rpx 10rpx;
+    margin: 0 0 10rpx 10rpx;
     width: 232rpx;
     height: 188rpx;
   }
 }
-
-
 </style>
