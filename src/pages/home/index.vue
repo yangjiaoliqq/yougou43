@@ -59,35 +59,25 @@ export default {
   },
   methods: {
     getSwiperdata(){
-      wx.request({
-        url: 'https://api.zbztb.cn/api/public/v1/home/swiperdata',
-        success: res => {
-          if(res.data.meta.status === 200){
-            this.swiperdata = res.data.message;
-          }
-        }
-      });
+      this.$request({
+        url: '/api/public/v1/home/swiperdata',
+      }).then(data=>{
+        this.swiperdata = data
+      })
     },
     getCatitems(){
-      wx.request({
-        url: 'https://api.zbztb.cn/api/public/v1/home/catitems',
-        success: res => {
-         if (res.data.meta.status === 200) {
-          this.catitems = res.data.message
-         }
-        }
-      });
+      this.$request({
+        url: '/api/public/v1/home/catitems',
+      }).then(data=>{
+        this.catitems = data
+      })
     },
     getFloordata(){
-      wx.request({
-        url: 'https://api.zbztb.cn/api/public/v1/home/floordata',
-        success: res => {
-         console.log(res);
-         if (res.data.meta.status === 200) {
-          this.floordata = res.data.message
-         }
-        }
-      });
+      this.$request({
+        url: '/api/public/v1/home/floordata',
+      }).then(data=>{
+        this.floordata = data
+      })
     }
   },
 }
