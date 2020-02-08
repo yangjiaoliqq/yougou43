@@ -80,10 +80,10 @@ export default {
 <style lang="less">
   // 头部
   .header {
-background-color: #ee4450;
-height: 100rpx;
-padding: 20rpx 16rpx;
-box-sizing: border-box;
+  background-color: #eb4450;
+  height: 100rpx;
+  padding: 20rpx 16rpx;
+  box-sizing: border-box;
 .inner {
   height: 60rpx;
   background-color: #fff;
