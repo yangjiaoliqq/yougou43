@@ -24,12 +24,18 @@
     </div>
     <!-- 楼层 -->
   <ul>
-    <li  class="floor" v-for="(floor,i) in 4" :key="i">
-      <img src="https://api.zbztb.cn/pyg/pic_floor01_title.png" alt="">
+    <li  class="floor" v-for="(floor,i) in floordata" :key="i">
+      <div class="floor_img"><img :src="floor.floor_title.image_src" alt=""></div>
        <div class="product_list">
-        <img src="https://api.zbztb.cn/pyg/pic_floor01_1@2x.png" alt="">
+        <img :src="floor.product_list[0].image_src" alt="">
         <div class="right">
-          <img  v-for="(item,index) in 4" :key="index" src="https://api.zbztb.cn/pyg/pic_floor01_2@2x.png" alt="">
+         <block
+           v-for="(item,index) in floor.product_list"
+             :key="index">
+            <img v-if="index > 0" 
+            :src="item.image_src"
+            alt="">
+         </block>
         </div>
        </div>
     </li>
@@ -43,11 +49,13 @@ export default {
     return {
       swiperdata:[],
       catitems:[],
+      floordata:[],
     }
   },
   onLoad(){
     this.getSwiperdata()
     this.getCatitems()
+    this.getFloordata()
   },
   methods: {
     getSwiperdata(){
@@ -66,6 +74,17 @@ export default {
         success: res => {
          if (res.data.meta.status === 200) {
           this.catitems = res.data.message
+         }
+        }
+      });
+    },
+    getFloordata(){
+      wx.request({
+        url: 'https://api.zbztb.cn/api/public/v1/home/floordata',
+        success: res => {
+         console.log(res);
+         if (res.data.meta.status === 200) {
+          this.floordata = res.data.message
          }
         }
       });
@@ -116,14 +135,22 @@ swiper {
 }
 // 楼层
 .floor {
- 
-  >img {
+  .floor_img{
     width: 100%;
     height: 88rpx;
+    background-color: rgb(244, 244, 244);
+    padding: 20rpx 8rpx 0rpx;
+    box-sizing: border-box;
+    overflow: hidden;
+     >img {
+       width: 100%;
+       height: 68rpx;
   }
+  }
+ 
 }
 .product_list {
-   padding:20rpx 17rpx 0;
+   padding:20rpx 17rpx 10rpx;
   display:flex;
   >img {
     width: 232rpx;
