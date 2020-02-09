@@ -6,19 +6,19 @@
     <div class="content" v-if="categories.length">
       <!-- 左侧一级菜单 -->
       <ul class="left">
-        <li :class="{active:activeIndex===index}" @click="activeIndex=index" v-for="cate1 in categories" :key="cate1.cat_id">{{ cate1.cat_name }}</li>
+        <li :class="{active:activeIndex===index}" @click="activeIndex=index" v-for="(cate1,index) in categories" :key="index">{{ cate1.cat_name }}</li>
       </ul>
       <!-- 右侧内容 -->
       <div class="right">
         <img src="/static/images/titleImage.png" alt="">
         <!-- 二级菜单 -->
         <ul>
-          <li class="cate2" v-for="cate2 in categories[activeIndex].children" :key="cate2.cat_id">
+          <li class="cate2" v-for="(cate2,index2) in categories[activeIndex].children" :key="index2">
             <p class="title">/<span>{{ cate2.cat_name }}</span>/</p>
               <!-- 三级菜单 -->
               <ul>
                 <li class="cate3" v-for="(cate3,index3) in cate2.children" :key="index3">
-                  <img :src="cate3.cat_icon" alt="">
+                  <img :src="cate3.cat_icon" :alt="cate3.cat_name">
                   <p>{{ cate3.cat_name }}</p>
                 </li>
               </ul>

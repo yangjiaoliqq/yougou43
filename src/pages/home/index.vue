@@ -12,21 +12,21 @@
     </swiper>
     <!-- 导航 -->
     <div class="nav">
-      <img v-for="(item,index) in catitems" :key="index" :src="item.image_src">
+      <img v-for="(item,index) in catitems" :key="index" :src="item.image_src" :alt="item.name">
     </div>
     <!-- 楼层 -->
   <ul>
     <li  class="floor" v-for="(floor,i) in floordata" :key="i">
-      <div class="floor_img"><img :src="floor.floor_title.image_src" alt=""></div>
+      <div class="floor_img"><img :src="floor.floor_title.image_src" :alt="floor.floor_title.name"></div>
        <div class="product_list">
         <img :src="floor.product_list[0].image_src" alt="">
         <div class="right">
          <block
            v-for="(item,index) in floor.product_list"
              :key="index">
-            <img v-if="index > 0" 
+            <img v-if="index" 
             :src="item.image_src"
-            alt="">
+            :alt="item.name">
          </block>
         </div>
        </div>
