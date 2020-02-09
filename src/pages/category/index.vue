@@ -5,8 +5,7 @@
     <!-- 商品分类 -->
     <div class="content">
       <ul class="left">
-        <li class="active">每日推荐</li>
-        <li v-for="(item,index) in 20" :key="index">大家电</li>
+        <li :class="{active:activeIndex===index}" @click="activeIndex=index" v-for="(item,index) in 20" :key="index">大家电</li>
       </ul>
       <ul class="right">
         <li>华为</li>
@@ -21,7 +20,12 @@ import SearchLink from '../../components/SearchLink'
 export default {
   components:{
     SearchLink
-  }
+  },
+  data() {
+    return {
+      activeIndex:0
+    }
+  },
 }
 </script>
 
