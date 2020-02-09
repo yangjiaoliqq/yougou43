@@ -3,23 +3,23 @@
     <!-- 搜索框 -->
     <SearchLink />
     <!-- 内容区域 -->
-    <div class="content">
+    <div class="content" v-if="categories.length">
       <!-- 左侧一级菜单 -->
       <ul class="left">
-        <li :class="{active:activeIndex===index}" @click="activeIndex=index" v-for="(item,index) in 20" :key="index">大家电</li>
+        <li :class="{active:activeIndex===index}" @click="activeIndex=index" v-for="cate1 in categories" :key="cate1.cat_id">{{ cate1.cat_name }}</li>
       </ul>
       <!-- 右侧内容 -->
       <div class="right">
         <img src="/static/images/titleImage.png" alt="">
         <!-- 二级菜单 -->
         <ul>
-          <li class="cate2" v-for="(cate2,index2) in 4" :key="index2">
-            <p class="title">/<span>电视</span>/</p>
+          <li class="cate2" v-for="cate2 in categories[activeIndex].children" :key="cate2.cat_id">
+            <p class="title">/<span>{{ cate2.cat_name }}</span>/</p>
               <!-- 三级菜单 -->
               <ul>
-                <li class="cate3" v-for="(cate3,index3) in 9" :key="index3">
-                  <img src="https://api.zbztb.cn/full/2fb113b32f7a2b161f5ee4096c319afedc3fd5a1.jpg" alt="">
-                  <p>曲面电视</p>
+                <li class="cate3" v-for="(cate3,index3) in cate2.children" :key="index3">
+                  <img :src="cate3.cat_icon" alt="">
+                  <p>{{ cate3.cat_name }}</p>
                 </li>
               </ul>
           </li>
@@ -38,7 +38,18 @@ export default {
   },
   data() {
     return {
-      activeIndex:0
+      activeIndex:0,//左侧菜单下标
+      categories:[],//左侧一级菜单列表
+    }
+  },
+  onLoad(){
+    this.getCategories()
+  },
+  methods: {
+    async getCategories(){
+      this.categories = await this.$request({
+        url:'/api/public/v1/categories'
+      })
     }
   },
 }
@@ -82,7 +93,9 @@ export default {
       }
     }
   }
-  // 右侧内容
+  
+}
+// 右侧内容
   .right {
     flex: 1;
     padding: 20rpx 16rpx 0;
@@ -113,12 +126,12 @@ export default {
       display: flex;
       flex-direction: column;
       align-items: center;
+      margin-bottom: 40rpx;
+      font-size: 28rpx;
       img {
       width: 120rpx;
       height: 120rpx;
      }
     }
   }
-}
-
 </style>
